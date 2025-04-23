@@ -1,0 +1,20 @@
+[
+  "\\bno error\\b",
+  "\\bnot an error\\b",
+  "\\bno warning\\b",
+  "\\bno exception\\b",
+  "\\bsuccessfully\\b",
+  "\\bHTTP response 200\\b",
+  "\\blogout successful\\b",
+  "\\bprocessed \\d+ records\\b",
+  "\\bconnection (to DB )?successful\\b",
+  "\\bnew user registered\\b",
+  "\\bprofile updated\\b",
+  "\\bonboarded\\b",
+  "no error",
+  "cleanly with no error",
+  "completed successfully",
+  "operation successful",
+  "login successful",
+  "task updated cleanly"
+]

@@ -1,0 +1,72 @@
+Pattern : <timestamp> <num> info haytam odoo.http: http request from <ip> - /web/login
+  Fréquence : 3
+  Lignes    : [1, 7, 12]
+
+Pattern : <timestamp> <num> error haytam <module_path>: failed to validate invoice inv/<num>/<num> - missing partner
+  Fréquence : 2
+  Lignes    : [2, 13]
+
+Pattern : <timestamp> <num> warning haytam odoo.models.unlink: user tried to delete product.product(<num>) without access rights
+  Fréquence : 2
+  Lignes    : [3, 14]
+
+Pattern : <timestamp> <num> info haytam odoo.sql_db: connection to db established
+  Fréquence : 2
+  Lignes    : [5, 16]
+
+Pattern : <timestamp> <num> warning haytam odoo.models.unlink: user tried to delete res.users(<num>) without access rights
+  Fréquence : 2
+  Lignes    : [8, 18]
+
+Pattern : <timestamp> <num> info haytam werkzeug: <ip> - - [<num>/apr/<num> <num>:<num>:<num>] <str> <num> -
+  Fréquence : 2
+  Lignes    : [11, 21]
+
+Pattern : <timestamp> <num> info haytam <module_path>: job <str> (<num>) processed <num> records
+  Fréquence : 1
+  Lignes    : [4]
+
+Pattern : <timestamp> <num> error haytam odoo.http: exception on /web/database/manager: psycopg2.interfaceerror: connection already closed
+  Fréquence : 1
+  Lignes    : [6]
+
+Pattern : <timestamp> <num> info haytam <module_path>: job <str> (<num>) done in <duration>
+  Fréquence : 1
+  Lignes    : [9]
+
+Pattern : <timestamp> <num> error haytam odoo.api: valueerror: expected a string but got int
+  Fréquence : 1
+  Lignes    : [10]
+
+Pattern : <timestamp> <num> info haytam odoo.fields: field res.partner.phone is deprecated and will be removed in future versions
+  Fréquence : 1
+  Lignes    : [15]
+
+Pattern : <timestamp> <num> error haytam odoo.http: exception on /web/database/manager: runtimeerror: session expired
+  Fréquence : 1
+  Lignes    : [17]
+
+Pattern : <timestamp> <num> error haytam odoo.api: valueerror: expected a string but got float
+  Fréquence : 1
+  Lignes    : [19]
+
+Pattern : <timestamp> <num> error haytam <module_path>: failed to post message due to missing model
+  Fréquence : 1
+  Lignes    : [20]
+
+Pattern : <timestamp> <num> info haytam odoo.http: http request from <ip> - /web/session/authenticate
+  Fréquence : 1
+  Lignes    : [22]
+
+Pattern : <timestamp> <num> error haytam <module_path>: payment acquirer <str> returned a <num> error - invalid card token
+  Fréquence : 1
+  Lignes    : [23]
+
+Pattern : <timestamp> <num> warning haytam odoo.models: detected recursive call in model res.users.write()
+  Fréquence : 1
+  Lignes    : [24]
+
+Pattern : <timestamp> <num> error haytam <module_path>: <num> not found: /website/non-existent-page
+  Fréquence : 1
+  Lignes    : [25]
+

@@ -1,0 +1,13 @@
+Ligne 2 | Pattern: Failed | Log: 2025-04-06 15:01:24,100 1234 ERROR Haytam odoo.addons.account.models.account_invoice: Failed to validate invoice INV/2025/032 - Missing partner
+Ligne 3 | Pattern: without access rights | Log: 2025-04-06 15:01:25,321 1234 WARNING Haytam odoo.models.unlink: User tried to delete product.product(51) without access rights
+Ligne 8 | Pattern: without access rights | Log: 2025-04-06 15:01:30,150 1234 WARNING Haytam odoo.models.unlink: User tried to delete res.users(3) without access rights
+Ligne 12 | Pattern: Access denied | Log: 2025-04-06 16:10:02,456 7001 ERROR error_user odoo.addons.base.ir.ir_model: Access denied to model res.partner
+Ligne 14 | Pattern: Invalid .* | Log: 2025-04-06 16:10:04,891 7001 ERROR error_user odoo.addons.mail.mail_thread: Mail delivery failed: invalid email address
+Ligne 17 | Pattern: timeout | Log: 2025-04-06 16:10:08,259 7001 ERROR error_user odoo.addons.payment.models: Payment gateway timeout
+Ligne 29 | Pattern: Access denied | Log: 2025-04-06 16:30:02,222 8001 ERROR omar odoo.models: Access denied to model sale.order
+Ligne 34 | Pattern: ERROR | Log: 2025-04-06 16:35:03,333 8101 ERROR reda odoo.http: Internal Server Error during POST /web/dataset/call_kw
+Ligne 39 | Pattern: timeout | Log: 2025-04-06 16:40:04,444 8201 ERROR ilyass odoo.sql_db: Query timeout - operation aborted
+Ligne 47 | Pattern: deadlock detected | Log: 2025-04-06 16:40:03,333 8201 ERROR walid odoo.sql_db: Deadlock detected during transaction
+Ligne 53 | Pattern: Failed | Log: 2025-04-06 16:45:03,333 8301 ERROR lina odoo.addons.payment.models: Payment authorization failed
+Ligne 55 | Pattern: Invalid .* | Log: 2025-04-06 16:45:05,555 8301 ERROR lina odoo.http: Invalid form submission detected
+Ligne 60 | Pattern: Failed | Log: 2025-04-06 16:50:04,444 8401 ERROR haydara odoo.addons.mail.mail_thread: Email template rendering failed

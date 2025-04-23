@@ -1,0 +1,56 @@
+Pattern (fréquence 1) :
+  <TIMESTAMP> <NUM> INFO dbname odoo.service.server: Starting service...
+  Lignes : 1
+
+Pattern (fréquence 1) :
+  <TIMESTAMP> <NUM> ERROR dbname odoo.sql_db: Connection to the database failed
+  Lignes : 2
+
+Pattern (fréquence 1) :
+  <TIMESTAMP> <NUM> WARNING dbname odoo.modules.loading: Missing dependencies: base_setup
+  Lignes : 3
+
+Pattern (fréquence 1) :
+  <TIMESTAMP> <NUM> INFO dbname odoo.addons.base.models.ir_cron: Job <STR> (<NUM>) done in <DURATION>
+  Lignes : 4
+
+Pattern (fréquence 1) :
+  <TIMESTAMP> <NUM> INFO dbname odoo.addons.base.models.ir_cron: Job <STR> (<NUM>) processed <NUM> records, <NUM> records remaining
+  Lignes : 5
+
+Pattern (fréquence 1) :
+  <TIMESTAMP> <NUM> INFO dbname odoo.addons.base.models.ir_cron: Job <STR> (<NUM>) completed
+  Lignes : 6
+
+Pattern (fréquence 1) :
+  <TIMESTAMP> <NUM> ERROR dbname werkzeug: Error on request: Traceback (most recent call last):
+  Lignes : 7
+
+Pattern (fréquence 1) :
+  File <STR>, line <NUM>, in _handle_exception
+  Lignes : 8
+
+Pattern (fréquence 1) :
+  return super(JsonRequest, self)._handle_exception(exception)
+  Lignes : 9
+
+Pattern (fréquence 1) :
+  odoo.exceptions.AccessError: Access denied for user <STR>
+  Lignes : 10
+
+Pattern (fréquence 1) :
+  <TIMESTAMP> <NUM> INFO dbname odoo.http: HTTP <NUM> Internal Server Error
+  Lignes : 11
+
+Pattern (fréquence 1) :
+  <TIMESTAMP> <NUM> ERROR dbname odoo.addons.mail.mail_thread: Mail delivery failed: SMTPAuthenticationError
+  Lignes : 12
+
+Pattern (fréquence 1) :
+  <TIMESTAMP> <NUM> ERROR dbname odoo.addons.base.models.ir_cron: Job <STR> (<NUM>) failed
+  Lignes : 13
+
+Pattern (fréquence 1) :
+  <TIMESTAMP> <NUM> WARNING dbname odoo.service.server: ir_cron: execution of job <STR> took too long (<DURATION>)
+  Lignes : 14
+
