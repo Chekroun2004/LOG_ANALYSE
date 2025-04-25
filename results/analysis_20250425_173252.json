@@ -1,0 +1,89 @@
+{
+  "metadata": {
+    "timestamp": "2025-04-25T17:32:52.828476",
+    "total_logs": 51,
+    "clusters_count": 5
+  },
+  "clusters": {
+    "4": {
+      "total": 10,
+      "INFO": 10
+    },
+    "0": {
+      "total": 21,
+      "ERROR": 10,
+      "INFO": 10,
+      "WARNING": 1
+    },
+    "2": {
+      "total": 9,
+      "WARNING": 2,
+      "ERROR": 2,
+      "INFO": 5
+    },
+    "3": {
+      "total": 6,
+      "WARNING": 6
+    },
+    "1": {
+      "total": 5,
+      "WARNING": 2,
+      "ERROR": 3
+    }
+  },
+  "error_patterns": {
+    "0": [
+      "SMTP server not reachable",
+      "Email template rendering failed",
+      "Internal Server Error during POST",
+      "Exception on /web/database/manager: psycopg2.InterfaceError: connection",
+      "Database connection lost",
+      "Payment authorization failed",
+      "Failed to validate invoice INV/2025/032",
+      "Mail delivery failed: invalid email",
+      "Query timeout - operation aborted",
+      "Payment gateway timeout"
+    ],
+    "2": [
+      "Constraint violation on record res.users(12)",
+      "Access denied to model res.partner"
+    ],
+    "1": [
+      "Invalid form submission detected",
+      "Access denied to model sale.order",
+      "Deadlock detected during transaction"
+    ]
+  },
+  "sample_logs": [
+    {
+      "cluster": 4,
+      "line": 1,
+      "level": "INFO",
+      "message": "HTTP Request from 192.168.1.15 - /web/login"
+    },
+    {
+      "cluster": 0,
+      "line": 2,
+      "level": "ERROR",
+      "message": "Failed to validate invoice INV/2025/032 - Missing partner"
+    },
+    {
+      "cluster": 2,
+      "line": 3,
+      "level": "WARNING",
+      "message": "User tried to delete product.product(51) without access rights"
+    },
+    {
+      "cluster": 3,
+      "line": 13,
+      "level": "WARNING",
+      "message": "Attempt to access deprecated API method"
+    },
+    {
+      "cluster": 1,
+      "line": 16,
+      "level": "WARNING",
+      "message": "Suspicious request parameters detected"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+    "haytam": {
+        "error": 2,
+        "warning": 2,
+        "info": 5
+    },
+    "error_user": {
+        "error": 7,
+        "warning": 0,
+        "info": 0
+    },
+    "secure_user": {
+        "error": 0,
+        "warning": 0,
+        "info": 7
+    },
+    "unknown": {
+        "error": 0,
+        "warning": 0,
+        "info": 1
+    },
+    "omar": {
+        "error": 2,
+        "warning": 2,
+        "info": 2
+    },
+    "reda": {
+        "error": 1,
+        "warning": 1,
+        "info": 1
+    },
+    "ilyass": {
+        "error": 1,
+        "warning": 1,
+        "info": 2
+    },
+    "walid": {
+        "error": 2,
+        "warning": 1,
+        "info": 2
+    },
+    "lina": {
+        "error": 2,
+        "warning": 1,
+        "info": 2
+    },
+    "haydara": {
+        "error": 1,
+        "warning": 1,
+        "info": 3
+    }
+}

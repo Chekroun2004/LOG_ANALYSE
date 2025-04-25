@@ -1,3 +1,4 @@
+#analyzer_pattern
 import json                                                                     # Importation du module json pour lire les fichiers JSON
 import re                                                                       # Importation du module re pour utiliser les expressions régulières
 
