@@ -1,193 +1,140 @@
-# analyzer_clust.py
-import re
-import os
+# analyzer_hierarchical.py - Version améliorée
+
 import matplotlib.pyplot as plt
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.cluster import KMeans
-from sklearn.decomposition import PCA
+import re
 from collections import defaultdict
-import json
-from datetime import datetime
 
-# Configuration
-LOG_FILE = "odoo.log.txt"
-OUTPUT_DIR = "results"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+# Constantes améliorées
+LINE_SPACING = 3.0
+PADDING_BETWEEN_USERS = 20
+LEVEL_SPACING = 5.0
+MARGIN = 15
+MAX_MSG_LEN = 80
+BLOCK_PADDING = 2.0  # Ajout de cette nouvelle constante
 
-def setup_logging():
-    """Configure le chemin des fichiers"""
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    chemin_log = os.path.join(base_dir, LOG_FILE)
-    
-    print(f"[CONFIG] Dossier de travail : {base_dir}")
-    print(f"[CONFIG] Fichier de log : {chemin_log}")
-    
-    if not os.path.exists(chemin_log):
-        print(f"[ERREUR] Fichier '{chemin_log}' introuvable")
-        exit(1)
-        
-    return chemin_log
+COLORS = {
+    'user': '#4b8bbe',
+    'error': '#ff6b6b',
+    'warning': '#ffd166',
+    'info': '#7fb800',
+    'message': '#f7f7f7'
+}
 
-def parse_logs(file_path):
-    """Parse les logs Odoo avec gestion des erreurs améliorée"""
+def parse_logs(filepath):
+    """Version plus robuste du parsing"""
     pattern = re.compile(
-        r'^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d+)\s+(\d+)\s+(\w+)\s+(\w+)\s+([\w\.]+):\s+(.*)'
+        r"(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d{3}) "
+        r"(?P<pid>\d+) "
+        r"(?P<level>[A-Z]+) "
+        r"(?P<user>\w+) "
+        r"(?P<module>[\w\.]+): "
+        r"(?P<message>.+)"
     )
+
+    logs = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
     
-    logs = []
-    current_log = None
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            for line in f:
+                if match := pattern.match(line):
+                    data = match.groupdict()
+                    msg = re.sub(r"\b\d+\b", "#", data["message"])  # Meilleure normalisation
+                    logs[data["user"]][data["level"]][msg].append(data["message"])
+    except Exception as e:
+        print(f"Erreur de lecture: {str(e)}")
     
-    with open(file_path, 'r', encoding='utf-8') as f:
-        for line_num, line in enumerate(f, 1):
-            line = line.strip()
-            if not line:
-                continue
-                
-            match = pattern.match(line)
-            if match:
-                if current_log:
-                    logs.append(current_log)
-                
-                timestamp, pid, level, user, module, message = match.groups()
-                current_log = {
-                    'line': line_num,
-                    'timestamp': timestamp,
-                    'level': level,
-                    'user': user,
-                    'module': module,
-                    'message': message
-                }
-            elif current_log:
-                current_log['message'] += '\n' + line
-            else:
-                print(f"[WARN] Ligne {line_num} ignorée (format non reconnu)")
-    
-    if current_log:
-        logs.append(current_log)
-        
-    print(f"[SUCCÈS] {len(logs)} logs parsés")
     return logs
 
-def cluster_logs(logs, n_clusters=5):
-    """Clusterisation des logs avec paramètres optimisés"""
-    vectorizer = TfidfVectorizer(
-        max_features=1000,
-        stop_words='english',
-        ngram_range=(1, 2)  # <-- Parenthèse fermée ici
-    )  # <-- Et ici pour fermer l'appel à TfidfVectorizer
-    
-    X = vectorizer.fit_transform([log['message'] for log in logs])
-    
-    kmeans = KMeans(
-        n_clusters=n_clusters,
-        init='k-means++',
-        max_iter=300,
-        random_state=42
-    ).fit(X)  # <-- Parenthèse fermée ici
-    
-    for i, log in enumerate(logs):
-        log['cluster'] = int(kmeans.labels_[i])
-    
-    return logs, X, vectorizer
+def get_block_height(data):
+    """Version optimisée"""
+    height = sum(
+        len(v) if isinstance(v, list) else 
+        max(get_block_height(v), 1) if isinstance(v, dict) else 
+        1 for v in data.values()
+    )
+    return max(height, 2)
 
-def analyze_clusters(logs):
-    """Analyse approfondie des clusters"""
-    analysis = {
-        'cluster_stats': defaultdict(lambda: defaultdict(int)),
-        'error_patterns': defaultdict(set)
-    }
+def draw_bracket(ax, data, x=0, y=0, depth=0):
+    """Version améliorée avec gestion de profondeur"""
+    y_cursor = y
     
-    for log in logs:
-        cluster = log['cluster']
-        analysis['cluster_stats'][cluster]['total'] += 1
-        analysis['cluster_stats'][cluster][log['level']] += 1
+    for key, val in data.items():
+        # Détermination de la couleur
+        if depth == 0:
+            color = COLORS['user']
+        else:
+            color = COLORS.get(key.lower(), COLORS['info'])
         
-        if log['level'] == 'ERROR':
-            analysis['error_patterns'][cluster].add(
-                ' '.join(log['message'].split()[:5]))
-    
-    return analysis
-
-def visualize_results(logs, X):
-    """Visualisation améliorée des clusters"""
-    pca = PCA(n_components=2).fit_transform(X.toarray())
-    
-    plt.figure(figsize=(12, 8))
-    for cluster in set(log['cluster'] for log in logs):
-        indices = [i for i, log in enumerate(logs) if log['cluster'] == cluster]
-        plt.scatter(
-            pca[indices, 0], pca[indices, 1],
-            label=f'Cluster {cluster}',
-            alpha=0.6)
-    
-    plt.title("Clustering des Logs Odoo\nAnalyse PCA", pad=20)
-    plt.xlabel("Composante Principale 1")
-    plt.ylabel("Composante Principale 2")
-    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
-    plt.grid(alpha=0.2)
-    plt.tight_layout()
-    
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_file = os.path.join(OUTPUT_DIR, f"clusters_{timestamp}.png")
-    plt.savefig(output_file, dpi=120, bbox_inches='tight')
-    plt.show()
-    print(f"[VISUALISATION] Graphique sauvegardé dans {output_file}")
-
-def export_results(logs, analysis):
-    """Export des résultats en JSON"""
-    output = {
-        'metadata': {
-            'timestamp': datetime.now().isoformat(),
-            'total_logs': len(logs),
-            'clusters_count': len(analysis['cluster_stats'])
-        },
-        'clusters': analysis['cluster_stats'],
-        'error_patterns': {k: list(v) for k, v in analysis['error_patterns'].items()},
-        'sample_logs': []
-    }
-    
-    # Ajout d'exemples de logs pour chaque cluster
-    for cluster in output['clusters']:
-        sample = next(log for log in logs if log['cluster'] == cluster)
-        output['sample_logs'].append({
-            'cluster': cluster,
-            'line': sample['line'],
-            'level': sample['level'],
-            'message': sample['message'][:200]
-        })
-    
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_file = os.path.join(OUTPUT_DIR, f"analysis_{timestamp}.json")
-    
-    with open(output_file, 'w', encoding='utf-8') as f:
-        json.dump(output, f, indent=2, ensure_ascii=False)
-    
-    print(f"[EXPORT] Résultats exportés dans {output_file}")
+        # Création du label
+        if isinstance(val, dict):
+            count = sum(len(v) for v in val.values() if isinstance(v, list))
+            label = f"{key} ({count})"
+        else:
+            label = key
+        
+        # Dessin du noeud
+        ax.text(x, y_cursor, label,
+                ha="left", va="center",
+                fontsize=10 - depth,  # Taille de police relative à la profondeur
+                bbox=dict(boxstyle="round",
+                         facecolor=color,
+                         edgecolor="black",
+                         alpha=0.8))
+        
+        # Traitement des enfants
+        if isinstance(val, dict):
+            child_x = x + LEVEL_SPACING
+            block_height = get_block_height(val) * LINE_SPACING
+            draw_bracket(ax, val, child_x, y_cursor, depth + 1)
+            y_cursor -= block_height + BLOCK_PADDING
+            
+        elif isinstance(val, list):
+            for i, msg in enumerate(val):
+                leaf_y = y_cursor - i * LINE_SPACING
+                msg_display = msg[:MAX_MSG_LEN//2] + "..." + msg[-MAX_MSG_LEN//2:] if len(msg) > MAX_MSG_LEN else msg
+                
+                ax.text(x + LEVEL_SPACING, leaf_y, msg_display,
+                        fontsize=9,
+                        color='#333',
+                        va='center',
+                        bbox=dict(boxstyle="round",
+                                 facecolor=COLORS['message'],
+                                 edgecolor="#ddd",
+                                 pad=0.3))
+                
+                ax.plot([x + 1, x + LEVEL_SPACING - 1], [y_cursor, leaf_y],
+                        ':', color='#999', lw=0.8)
+            
+            y_cursor -= len(val) * LINE_SPACING
 
 if __name__ == "__main__":
-    try:
-        # 1. Configuration
-        log_file = setup_logging()
-        
-        # 2. Parsing des logs
-        logs = parse_logs(log_file)
-        if not logs:
-            raise ValueError("Aucun log valide à analyser")
-        
-        # 3. Clusterisation
-        logs, X, vectorizer = cluster_logs(logs)
-        
-        # 4. Analyse
-        analysis = analyze_clusters(logs)
-        
-        # 5. Visualisation
-        visualize_results(logs, X)
-        
-        # 6. Export
-        export_results(logs, analysis)
-        
-        print("\n[TERMINÉ] Analyse complétée avec succès!")
-        
-    except Exception as e:
-        print(f"\n[ERREUR] {str(e)}")
-        exit(1)
+    # Chargement des données
+    logs = parse_logs("odoo.log.txt")
+    
+    # Calcul des dimensions
+    total_lines = sum(get_block_height(c) + PADDING_BETWEEN_USERS for c in logs.values())
+    total_height = total_lines * LINE_SPACING + MARGIN
+    
+    # Création de la figure
+    fig_height = max(10, min(30, total_height / 4))
+    fig, ax = plt.subplots(figsize=(28, fig_height))
+    ax.set_xlim(0, 30)  # Espace horizontal augmenté
+    ax.set_ylim(-total_height, 10)
+    ax.axis('off')
+    
+    # Dessin
+    current_y = 0
+    for user, content in logs.items():
+        draw_bracket(ax, {user: content}, y=current_y)
+        current_y -= (get_block_height(content) + PADDING_BETWEEN_USERS) * LINE_SPACING
+    
+    # Finalisation
+    plt.title("Analyse Hiérarchique des Logs Odoo\nPar Utilisateur → Niveau → Message", 
+              pad=20, fontsize=16, fontweight='bold')
+    plt.tight_layout()
+    
+    # Sauvegarde
+    output_file = "odoo_logs_hierarchy.png"
+    plt.savefig(output_file, dpi=300, bbox_inches='tight')
+    print(f"Visualisation sauvegardée dans '{output_file}'")
+    plt.show()

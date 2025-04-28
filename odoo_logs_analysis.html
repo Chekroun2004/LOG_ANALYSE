@@ -1,0 +1,187 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Analyse Logs Odoo</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            .user { background-color: #4b8bbe; color: white; padding: 8px; margin: 5px 0; border-radius: 5px; }
+            .level { margin-left: 20px; }
+            .error { background-color: #ff6b6b; padding: 6px; margin: 4px 0; border-radius: 4px; }
+            .warning { background-color: #ffd166; padding: 6px; margin: 4px 0; border-radius: 4px; }
+            .info { background-color: #7fb800; padding: 6px; margin: 4px 0; border-radius: 4px; }
+            .message { margin-left: 40px; padding: 4px; background-color: #f7f7f7; border-left: 3px solid #ccc; }
+            .toggle { cursor: pointer; }
+            .collapsed { display: none; }
+        </style>
+        <script>
+            function toggleSection(element) {
+                const content = element.nextElementSibling;
+                content.classList.toggle('collapsed');
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Analyse Hiérarchique des Logs Odoo</h1>
+    
+<div class="user toggle" onclick="toggleSection(this)">Utilisateur: Haytam</div>
+<div class="level">
+<div class="info toggle" onclick="toggleSection(this)">Niveau: INFO (5 messages)</div>
+<div class="collapsed">
+<div class="message">HTTP Request from 192.168.1.15 - /web/login <em>(2 occurrences)</em></div>
+<div class="message">Job &#x27;Mail Queue Cleanup&#x27; (12) processed 10 records</div>
+<div class="message">Connection to DB established</div>
+<div class="message">Job &#x27;Calendar Sync&#x27; (34) done in 0.005s</div>
+</div>
+<div class="error toggle" onclick="toggleSection(this)">Niveau: ERROR (2 messages)</div>
+<div class="collapsed">
+<div class="message">Failed to validate invoice INV/2025/032 - Missing partner</div>
+<div class="message">Exception on /web/database/manager: psycopg2.InterfaceError: connection already closed</div>
+</div>
+<div class="warning toggle" onclick="toggleSection(this)">Niveau: WARNING (2 messages)</div>
+<div class="collapsed">
+<div class="message">User tried to delete product.product(51) without access rights</div>
+<div class="message">User tried to delete res.users(3) without access rights</div>
+</div>
+</div>
+<div class="user toggle" onclick="toggleSection(this)">Utilisateur: error_user</div>
+<div class="level">
+<div class="info toggle" onclick="toggleSection(this)">Niveau: INFO (1 messages)</div>
+<div class="collapsed">
+<div class="message">HTTP Request from 10.0.0.5 - /web/login</div>
+</div>
+<div class="error toggle" onclick="toggleSection(this)">Niveau: ERROR (4 messages)</div>
+<div class="collapsed">
+<div class="message">Access denied to model res.partner</div>
+<div class="message">Mail delivery failed: invalid email address</div>
+<div class="message">Database connection lost</div>
+<div class="message">Payment gateway timeout</div>
+</div>
+<div class="warning toggle" onclick="toggleSection(this)">Niveau: WARNING (2 messages)</div>
+<div class="collapsed">
+<div class="message">Attempt to access deprecated API method</div>
+<div class="message">Suspicious request parameters detected</div>
+</div>
+</div>
+<div class="user toggle" onclick="toggleSection(this)">Utilisateur: secure_user</div>
+<div class="level">
+<div class="info toggle" onclick="toggleSection(this)">Niveau: INFO (7 messages)</div>
+<div class="collapsed">
+<div class="message">HTTP Request from 10.0.0.8 - /web/login</div>
+<div class="message">New user registered (res.users/32)</div>
+<div class="message">Employee record created successfully</div>
+<div class="message">127.0.0.1 - - [06/Apr/2025 16:20:13] &quot;GET /web HTTP/1.1&quot; 200 -</div>
+<div class="message">Task updated cleanly with no error</div>
+<div class="message">HTTP Response sent successfully <em>(2 occurrences)</em></div>
+</div>
+</div>
+<div class="user toggle" onclick="toggleSection(this)">Utilisateur: omar</div>
+<div class="level">
+<div class="info toggle" onclick="toggleSection(this)">Niveau: INFO (2 messages)</div>
+<div class="collapsed">
+<div class="message">HTTP Request from 10.1.1.1 - /web/login</div>
+<div class="message">Partner record created (res.partner/50)</div>
+</div>
+<div class="error toggle" onclick="toggleSection(this)">Niveau: ERROR (2 messages)</div>
+<div class="collapsed">
+<div class="message">Access denied to model sale.order</div>
+<div class="message">SMTP server not reachable</div>
+</div>
+<div class="warning toggle" onclick="toggleSection(this)">Niveau: WARNING (2 messages)</div>
+<div class="collapsed">
+<div class="message">Deprecated field used in res.company</div>
+<div class="message">Non-recommended API method used</div>
+</div>
+</div>
+<div class="user toggle" onclick="toggleSection(this)">Utilisateur: reda</div>
+<div class="level">
+<div class="info toggle" onclick="toggleSection(this)">Niveau: INFO (1 messages)</div>
+<div class="collapsed">
+<div class="message">Connection to DB successful</div>
+</div>
+<div class="warning toggle" onclick="toggleSection(this)">Niveau: WARNING (1 messages)</div>
+<div class="collapsed">
+<div class="message">Task took too long to execute</div>
+</div>
+<div class="error toggle" onclick="toggleSection(this)">Niveau: ERROR (1 messages)</div>
+<div class="collapsed">
+<div class="message">Internal Server Error during POST /web/dataset/call_kw</div>
+</div>
+</div>
+<div class="user toggle" onclick="toggleSection(this)">Utilisateur: ilyass</div>
+<div class="level">
+<div class="info toggle" onclick="toggleSection(this)">Niveau: INFO (2 messages)</div>
+<div class="collapsed">
+<div class="message">User updated profile info</div>
+<div class="message">HTTP Response sent for /web/login</div>
+</div>
+<div class="warning toggle" onclick="toggleSection(this)">Niveau: WARNING (1 messages)</div>
+<div class="collapsed">
+<div class="message">Usage of non-optimized search</div>
+</div>
+<div class="error toggle" onclick="toggleSection(this)">Niveau: ERROR (1 messages)</div>
+<div class="collapsed">
+<div class="message">Query timeout - operation aborted</div>
+</div>
+</div>
+<div class="user toggle" onclick="toggleSection(this)">Utilisateur: walid</div>
+<div class="level">
+<div class="info toggle" onclick="toggleSection(this)">Niveau: INFO (2 messages)</div>
+<div class="collapsed">
+<div class="message">HTTP Request from 10.2.2.2 - /web/login</div>
+<div class="message">HTTP response 200 for /web/dashboard</div>
+</div>
+<div class="warning toggle" onclick="toggleSection(this)">Niveau: WARNING (1 messages)</div>
+<div class="collapsed">
+<div class="message">Unused field detected in model crm.lead</div>
+</div>
+<div class="error toggle" onclick="toggleSection(this)">Niveau: ERROR (2 messages)</div>
+<div class="collapsed">
+<div class="message">Deadlock detected during transaction</div>
+<div class="message">Constraint violation on record res.users(12)</div>
+</div>
+</div>
+<div class="user toggle" onclick="toggleSection(this)">Utilisateur: lina</div>
+<div class="level">
+<div class="info toggle" onclick="toggleSection(this)">Niveau: INFO (2 messages)</div>
+<div class="collapsed">
+<div class="message">New employee onboarded (res.users/61)</div>
+<div class="message">Logout successful for user lina</div>
+</div>
+<div class="warning toggle" onclick="toggleSection(this)">Niveau: WARNING (1 messages)</div>
+<div class="collapsed">
+<div class="message">Deprecated method compute_totals called</div>
+</div>
+<div class="error toggle" onclick="toggleSection(this)">Niveau: ERROR (2 messages)</div>
+<div class="collapsed">
+<div class="message">Payment authorization failed</div>
+<div class="message">Invalid form submission detected</div>
+</div>
+</div>
+<div class="user toggle" onclick="toggleSection(this)">Utilisateur: haydara</div>
+<div class="level">
+<div class="info toggle" onclick="toggleSection(this)">Niveau: INFO (3 messages)</div>
+<div class="collapsed">
+<div class="message">HTTP Request from 10.3.3.3 - /web/login</div>
+<div class="message">Customer profile updated</div>
+<div class="message">Connection released back to pool</div>
+</div>
+<div class="warning toggle" onclick="toggleSection(this)">Niveau: WARNING (1 messages)</div>
+<div class="collapsed">
+<div class="message">Using legacy method for invoice posting</div>
+</div>
+<div class="error toggle" onclick="toggleSection(this)">Niveau: ERROR (1 messages)</div>
+<div class="collapsed">
+<div class="message">Email template rendering failed</div>
+</div>
+</div>
+
+        <script>
+            // Toggle initial pour les niveaux
+            document.querySelectorAll('.level > .toggle').forEach(el => {
+                el.nextElementSibling.classList.add('collapsed');
+            });
+        </script>
+    </body>
+    </html>
+    
