@@ -1,1 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.eggs/
+venv/
+.venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Tools
 .qodo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated outputs (keep sample PNGs but ignore runtime outputs)
+results/
